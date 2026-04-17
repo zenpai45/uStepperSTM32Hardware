@@ -16,8 +16,8 @@
           "category": "Contributed",
           "url": "https://github.com/uStepper/uStepperSTM32Hardware/releases/download/v1.2.1/uStepperSTM32Hardware-1.2.1.tar.bz2",
           "archiveFileName": "uStepperSTM32Hardware-1.2.1.tar.bz2",
-          "checksum": "SHA-256:1e07d714fff1fd79a1c1deaa4eec529d2c5afa7c90855be7ff07f5d6b14b87c4",
-          "size": 4256619,
+          "checksum": "SHA-256:758ee94e7fba635d42fdf5ff26297b56d94da06716cb8f123c18b97dff8e3902",
+          "size": 4258411,
           "boards": [
             {
               "name": "uStepper STM32 Boards"
