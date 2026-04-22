@@ -1,0 +1,32 @@
+name: notify dashboard
+on:
+  issues:
+    types: [opened, edited, closed, reopened, labeled, unlabeled,
+            assigned, unassigned, milestoned, demilestoned, transferred]
+permissions: {}
+concurrency:
+  group: notify-dashboard-${{ github.repository }}
+  cancel-in-progress: true
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547  # v1.x — ustepper-snapshot-dispatch
+        id: app
+        with:
+          app-id: ${{ vars.DISPATCH_APP_ID }}
+          private-key: ${{ secrets.DISPATCH_APP_PRIVATE_KEY }}
+          owner: zenpai45
+          repositories: ustepperSTM32.plan
+      - env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          REPO: ${{ github.repository }}
+          ACTION: ${{ github.event.action }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          gh api repos/zenpai45/ustepperSTM32.plan/dispatches \
+            -f event_type=siblings-changed \
+            -f "client_payload[repo]=$REPO" \
+            -f "client_payload[action]=$ACTION" \
+            -f "client_payload[issue]=$ISSUE"
